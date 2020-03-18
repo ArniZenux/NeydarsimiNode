@@ -3,12 +3,16 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 let data = require('./data');
+const http = require('http');
 
-/*let message = {
-    id : "1",
-	"name" : "Arni", 
-	"age" : "38"
-};*/
+const port = 8080; 
+const hostname = '127.0.0.1';
+
+const server = http.createServer((req, res) => {
+    res.statusCode = 200; 
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello world');
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( { extended: true }));
@@ -47,7 +51,7 @@ app.get('/list/:id', function(req, res, next){
     next();
 });
 
-var server = app.listen(8080, function() {
-	console.log('Listen on port 8080'); 
+var server = app.listen(port, hostname, function() {
+	console.log('Server running at http://${hostname}:${port}'); 
 });
 
